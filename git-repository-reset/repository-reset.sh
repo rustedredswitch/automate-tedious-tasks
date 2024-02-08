@@ -22,10 +22,10 @@ fi
 git checkout "$branch"
 git pull $auth_remote
 git stash clear
-branches=$(git branch | grep -v "$branch")
-for branch in $branches
+branches_to_delete=$(git branch | grep -v "$branch")
+for branch_to_delete in $branches_to_delete
 do
-   git branch -D "$branch"
+   git branch -D "$branch_to_delete"
 done
 
 echo "Git repository restored"
