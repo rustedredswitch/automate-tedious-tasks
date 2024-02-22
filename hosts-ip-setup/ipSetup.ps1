@@ -19,8 +19,9 @@ foreach ($line in $config) {
 }
 
 # Get the IP address
-$InterfaceAlias = (Get-NetAdapter | Where-Object { $_.Status -eq 'Up' -and ($_.Name -like 'Wi-Fi' -or $_.Name -like 'Ethernet') } | Select-Object -First 1).InterfaceAlias
-$Ip = (Get-NetIPAddress -InterfaceAlias $InterfaceAlias -AddressFamily IPv4).IPAddress
+$NetConnection = Test-NetConnection
+$InterfaceAlias = $NetConnection.InterfaceAlias
+$Ip = $NetConnection.SourceAddress.IPAddress
 Write-Output "Current IP: $Ip"
 Write-Output "Current interface: $InterfaceAlias"
 
